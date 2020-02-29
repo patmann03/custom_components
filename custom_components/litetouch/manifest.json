@@ -1,0 +1,8 @@
+{
+  "domain": "litetouch",
+  "name": "Savant LiteTouch",
+  "documentation": "https://github.com/patmann03/pylitetouch",
+  "requirements": ["pylitetouch==0.0.4"],
+  "dependencies": [],
+  "codeowners": []
+}
