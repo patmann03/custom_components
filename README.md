@@ -19,3 +19,8 @@ Sample YAML:
         - addr: "4_7"
           name: "Front Hall Chandelier"
           loadid: "23"
+          
+# HACS Installation
+Add this repository to your HACS within Home Assistant to handle updates and easy installation.
+    URL: https://github.com/patmann03/custom_components
+
