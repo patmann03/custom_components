@@ -125,4 +125,3 @@ class LiteTouchDevice:
     def should_poll(self):
         """No need to poll."""
         return False
-
