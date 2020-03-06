@@ -1,9 +1,6 @@
 """Support for LiteTouch Switch."""
 import logging
 
-import pylitetouch.pylitetouch
-import time
-
 from homeassistant.components.switch import SwitchDevice
 from homeassistant.const import CONF_NAME
 from homeassistant.core import callback
@@ -13,7 +10,6 @@ from . import (
     CONF_ADDR,
     CONF_SWITCH,
     CONF_LOADID,
-    ENTITY_SIGNAL,
     LITETOUCH_CONTROLLER,
     LiteTouchDevice,
 )
@@ -47,8 +43,7 @@ class LiteTouchSwitch(LiteTouchDevice, SwitchDevice):
 
     async def async_added_to_hass(self):
         """Call when entity is added to hass."""
-        signal = ENTITY_SIGNAL.format(self._addr)
-        _LOGGER.debug("connecting %s", signal)
+        signal = f"litetouch_entity_{self._addr}"
         async_dispatcher_connect(self.hass, signal, self._update_callback)
         self._controller.get_led_states(self._addr)
 

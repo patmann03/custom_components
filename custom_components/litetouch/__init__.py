@@ -72,14 +72,10 @@ def setup(hass, base_config):
         _LOGGER.debug("callback: %s, %s", msg_type, values)
         # set entity id eq to callback value.
         addr = values[0]
-        signal = ENTITY_SIGNAL.format(addr)
-
-        _LOGGER.debug("send to dispatcher %s, %s, %s,", signal, msg_type, values)
-
+        signal = f"litetouch_entity_{addr}"
         dispatcher_send(hass, signal, msg_type, values)
 
     config = base_config.get(DOMAIN)
-    _LOGGER.debug("Initiating connect to controller")
 
     controller = LiteTouch(config[CONF_HOST], config[CONF_PORT], hw_callback)
 
