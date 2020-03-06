@@ -10,6 +10,7 @@ from . import (
     CONF_ADDR,
     CONF_SWITCH,
     CONF_LOADID,
+    CONF_ICON,
     LITETOUCH_CONTROLLER,
     LiteTouchDevice,
 )
@@ -26,7 +27,11 @@ def setup_platform(hass, config, add_entities, discover_info=None):
     devs = []
     for switch in discover_info[CONF_SWITCH]:
         dev = LiteTouchSwitch(
-            controller, switch[CONF_ADDR], switch[CONF_NAME], switch[CONF_LOADID]
+            controller,
+            switch[CONF_ADDR],
+            switch[CONF_NAME],
+            switch[CONF_LOADID],
+            switch[CONF_ICON],
         )
         devs.append(dev)
     add_entities(devs, True)
@@ -35,10 +40,11 @@ def setup_platform(hass, config, add_entities, discover_info=None):
 class LiteTouchSwitch(LiteTouchDevice, SwitchDevice):
     """LiteTouch Switch."""
 
-    def __init__(self, controller, addr, name, loadid):
+    def __init__(self, controller, addr, name, loadid, icon):
         """Create device with Addr, name, and loadid."""
         super().__init__(controller, addr, name)
         self._loadid = int(loadid)
+        self._icon = icon
         self._state = 0
 
     async def async_added_to_hass(self):
@@ -64,6 +70,10 @@ class LiteTouchSwitch(LiteTouchDevice, SwitchDevice):
     def is_on(self):
         """Is the Switch on/off."""
         return self._state != 0
+
+    @property
+    def icon(self):
+        return self._icon
 
     @callback
     def _update_callback(self, msg_type, values):
