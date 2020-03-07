@@ -29,6 +29,9 @@ CONF_DIMMERS = "dimmers"
 CONF_SWITCH = "switch"
 CONF_ADDR = "addr"
 CONF_LOADID = "loadid"
+CONF_ICON = "icon"
+
+DEF_ICON = "mdi:power-plug"
 
 
 DIMMER_SCHEMA = vol.Schema(
@@ -44,6 +47,7 @@ SWITCH_SCHEMA = vol.Schema(
         vol.Required(CONF_ADDR): cv.string,
         vol.Required(CONF_NAME): cv.string,
         vol.Required(CONF_LOADID): cv.string,
+        vol.Optional(CONF_ICON, default=DEF_ICON): cv.icon,
     }
 )
 
@@ -125,3 +129,4 @@ class LiteTouchDevice:
     def should_poll(self):
         """No need to poll."""
         return False
+
