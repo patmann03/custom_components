@@ -19,6 +19,11 @@ Sample YAML:
         - addr: "4_7"
           name: "Front Hall Chandelier"
           loadid: "23"
+      switch:
+        - addr: "017_2"
+          name: "Outside Outlets"
+          loadid: "110"
+          icon: mdi:power
           
 # HACS Installation
 Add this repository to your HACS within Home Assistant to handle updates and easy installation.
