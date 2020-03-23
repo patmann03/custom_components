@@ -10,6 +10,7 @@ from . import (
     CONF_ADDR,
     CONF_DIMMERS,
     CONF_LOADID,
+    CONF_TOGGLE,
     LITETOUCH_CONTROLLER,
     LiteTouchDevice,
 )
@@ -26,7 +27,11 @@ def setup_platform(hass, config, add_entities, discover_info=None):
     devs = []
     for dimmer in discover_info[CONF_DIMMERS]:
         dev = LiteTouchLight(
-            controller, dimmer[CONF_ADDR], dimmer[CONF_NAME], dimmer[CONF_LOADID]
+            controller,
+            dimmer[CONF_ADDR],
+            dimmer[CONF_NAME],
+            dimmer[CONF_LOADID],
+            dimmer[CONF_TOGGLE],
         )
         devs.append(dev)
     add_entities(devs, True)
@@ -35,10 +40,11 @@ def setup_platform(hass, config, add_entities, discover_info=None):
 class LiteTouchLight(LiteTouchDevice, Light):
     """LiteTouch Light."""
 
-    def __init__(self, controller, addr, name, loadid):
+    def __init__(self, controller, addr, name, loadid, toggle):
         """Create device with Addr, name, and loadid."""
         super().__init__(controller, addr, name)
         self._loadid = int(loadid)
+        self._toggle = toggle
         self._level = 0
         self._prev_level = 0
 
@@ -58,15 +64,28 @@ class LiteTouchLight(LiteTouchDevice, Light):
         # _LOGGER.debug("Call turn on %s", **kwargs)
         if ATTR_BRIGHTNESS in kwargs:
             new_level = kwargs[ATTR_BRIGHTNESS]
-        elif self._prev_level == 0:
-            new_level = 255
+            _LOGGER.debug("Set Brightness")
+            self._set_brightness(new_level)
+        elif self._toggle is True:
+            keypad = self._addr.split("_")[0]
+            button = self._addr.split("_")[1]
+            self._level = 255
+            _LOGGER.debug("Call toggle")
+            self._controller.toggle_switch(int(keypad), int(button))
         else:
-            new_level = self._prev_level
-        self._set_brightness(new_level)
+            new_level = 255
+            self._set_brightness(new_level)
 
     def turn_off(self, **kwargs):
         """Turn off the light."""
-        self._set_brightness(0)
+        if self._toggle is True:
+            keypad = self._addr.split("_")[0]
+            button = self._addr.split("_")[1]
+            self._level = 255
+            _LOGGER.debug("Call toggle")
+            self._controller.toggle_switch(int(keypad), int(button))
+        else:
+            self._set_brightness(0)
 
     @property
     def brightness(self):
@@ -82,7 +101,11 @@ class LiteTouchLight(LiteTouchDevice, Light):
     @property
     def device_state_attributes(self):
         """Supported attributes."""
-        return {"LiteTouch_address": self._addr, "Load ID: ": self._loadid}
+        return {
+            "LiteTouch_address": self._addr,
+            "Load ID: ": self._loadid,
+            "Toggle: ": self._toggle,
+        }
 
     @property
     def is_on(self):
