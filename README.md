@@ -6,7 +6,8 @@ In your config directory, create a folder for 'custom_components' if it is not a
 On your configuration.yaml, add the component litetouch.  
 
 Create the entities under the 'dimmers' section.  The addr field is your keypad number and the button number associated with the load.  The loadid is the index number on the loadgroup as it is defined in the liteware software.
-
+type: 1- default
+      2- toggle
 Sample YAML:
 
     litetouch:
@@ -21,6 +22,7 @@ Sample YAML:
           loadid: "23"
       switch:
         - addr: "017_2"
+          type: 1                   
           name: "Outside Outlets"
           loadid: "110"
           icon: mdi:power
