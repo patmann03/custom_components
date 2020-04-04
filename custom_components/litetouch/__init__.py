@@ -16,9 +16,11 @@ from homeassistant.core import callback
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.discovery import load_platform
 from homeassistant.helpers.dispatcher import async_dispatcher_connect, dispatcher_send
-from homeassistant.util import slugify
+from homeassistant.util import slugify, dt
 
 _LOGGER = logging.getLogger(__name__)
+
+DEFAULT_TIME_ZONE = dt.DEFAULT_TIME_ZONE
 
 DOMAIN = "litetouch"
 
@@ -100,6 +102,14 @@ def setup(hass, base_config):
     
     switch = config[CONF_SWITCH]
     load_platform(hass, "switch", DOMAIN, {CONF_SWITCH: switch}, base_config)
+
+    def set_clock(call):
+        time = dt.now(DEFAULT_TIME_ZONE)
+        hass.states.set("litetouch.set_clock", time)
+        clock = time.strftime("%Y%m%d%H%M%S")
+        controller.set_clock(clock)
+
+    hass.services.register(DOMAIN, "Set Clock", set_clock)
 
     return True
 
