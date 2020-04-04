@@ -1,6 +1,7 @@
 """Support for LiteTouch 5000LC and Savant SSL-P018 ."""
 import logging
 
+
 from pylitetouch.pylitetouch import LiteTouch
 import voluptuous as vol
 
@@ -96,7 +97,7 @@ def setup(hass, base_config):
 
     dimmers = config[CONF_DIMMERS]
     load_platform(hass, "light", DOMAIN, {CONF_DIMMERS: dimmers}, base_config)
-
+    
     switch = config[CONF_SWITCH]
     load_platform(hass, "switch", DOMAIN, {CONF_SWITCH: switch}, base_config)
 

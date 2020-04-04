@@ -62,7 +62,7 @@ class LiteTouchSwitch(LiteTouchDevice, SwitchDevice):
             keypad = self._addr.split("_")[0]
             button = self._addr.split("_")[1]
             _LOGGER.debug("Call toggle on")
-            self._controller.toggle_switch(int(keypad), int(button))
+            self._controller.toggle_switch(keypad, int(button))
         else:
             self._controller.set_loadon(self._loadid)
 
@@ -72,7 +72,7 @@ class LiteTouchSwitch(LiteTouchDevice, SwitchDevice):
             keypad = self._addr.split("_")[0]
             button = self._addr.split("_")[1]
             _LOGGER.debug("Call toggle off")
-            self._controller.toggle_switch(int(keypad), int(button))
+            self._controller.toggle_switch(keypad, int(button))
         else:
             self._controller.set_loadoff(self._loadid)
 
@@ -98,7 +98,7 @@ class LiteTouchSwitch(LiteTouchDevice, SwitchDevice):
     def _update_callback(self, msg_type, values):
         """Process device specific messages."""
 
-        if msg_type == "RLEDU" or msg_type == "CGLES":
+        if msg_type in ("RLEDU", "CGLES", "CGLED"):
             _LOGGER.debug("Switch Update Callback: %s, %s", msg_type, values)
             lvl = int(values[1])
             if lvl == 1:

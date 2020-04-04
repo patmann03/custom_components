@@ -71,7 +71,7 @@ class LiteTouchLight(LiteTouchDevice, Light):
             button = self._addr.split("_")[1]
             self._level = 255
             _LOGGER.debug("Call toggle")
-            self._controller.toggle_switch(int(keypad), int(button))
+            self._controller.toggle_switch(keypad, int(button))
         else:
             new_level = 255
             self._set_brightness(new_level)
@@ -83,7 +83,7 @@ class LiteTouchLight(LiteTouchDevice, Light):
             button = self._addr.split("_")[1]
             self._level = 255
             _LOGGER.debug("Call toggle")
-            self._controller.toggle_switch(int(keypad), int(button))
+            self._controller.toggle_switch(keypad, int(button))
         else:
             self._set_brightness(0)
 
@@ -117,7 +117,7 @@ class LiteTouchLight(LiteTouchDevice, Light):
         """Process device specific messages."""
         _LOGGER.debug("Light Callback: %s, %s", msg_type, values)
 
-        if msg_type == "RLEDU" or msg_type == "CGLES":
+        if msg_type in ("RLEDU", "CGLES", "CGLED"):
 
             lvl = int(values[1])
             if lvl == 1:
