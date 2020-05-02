@@ -1,7 +1,7 @@
 """Support for LiteTouch lights."""
 import logging
 
-from homeassistant.components.light import ATTR_BRIGHTNESS, SUPPORT_BRIGHTNESS, Light
+from homeassistant.components.light import ATTR_BRIGHTNESS, SUPPORT_BRIGHTNESS, LightEntity
 from homeassistant.const import CONF_NAME
 from homeassistant.core import callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
@@ -37,7 +37,7 @@ def setup_platform(hass, config, add_entities, discover_info=None):
     add_entities(devs, True)
 
 
-class LiteTouchLight(LiteTouchDevice, Light):
+class LiteTouchLight(LiteTouchDevice, LightEntity):
     """LiteTouch Light."""
 
     def __init__(self, controller, addr, name, loadid, toggle):
