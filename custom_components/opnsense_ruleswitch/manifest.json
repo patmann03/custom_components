@@ -1,0 +1,12 @@
+{
+    "domain": "opnsense_ruleswitch",
+    "name": "opnsense ruleswitch",
+    "documentation": "https://github.com/14roiron/opnsense-ruleswitch",
+    "issue_tracker": "https://github.com/14roiron/opnsense-ruleswitch/issues",
+    "requirements": ["pyopnsense==0.3.0"],
+    "config_flow": false,
+    "version": "0.0.1",
+    "iot_class": "local_polling",
+    "codeowners": ["@14roiron"],
+    "dependencies": []
+  }
