@@ -48,6 +48,8 @@ Opnsense Setup:
     Install the os-firewall plugin
     Go to Firewall > Automation
     Create Rule
-        NOTE: These rules are placed above all other rules (Automation > Floating > VLAN/LAN rules).  Be careful you you can lock yourself out.
-    If you want to expose these to Home Assistant you can add: HA to the beginning of the rule (if you specify rule_filter in the home assistant config.yaml file).  Other rules would not be shown if you use the rule filter.
+        NOTE: These rules are placed above all other rules (Automation > Floating > VLAN/LAN rules).  
+        Be careful you you can lock yourself out.
+    If you want to expose these to Home Assistant you can add: HA to the beginning of the rule (if you specify rule_filter in the home assistant config.yaml file).  
+    Other rules would not be shown if you use the rule filter.
 ```
