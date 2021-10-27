@@ -29,8 +29,8 @@ Sample YAML:
 
 # Opnsense Firewall Rule
 
-download the opnsense_ruleswitch folder and place in custom_components folder within the Home Assistant config directory
-Please NOTE that my rules are 'inverted'.  This means that this custom component shows the rule as off when it is enabled and on when it is disabled.  I use this to turn off the internet to PC/Xbox devices at night for the kid.  It is easier to say 'Internet is On' vs. firewall rule is on to disable internet for others in the house.
+- download the opnsense_ruleswitch folder and place in custom_components folder within the Home Assistant config directory
+- Please NOTE that my rules are 'inverted'.  This means that this custom component shows the rule as off when it is enabled and on when it is disabled.  I use this to turn off the internet to PC/Xbox devices at night for the kid.  It is easier to say 'Internet is On' vs. firewall rule is on to disable internet for others in the house.
 
 
 Sample YAML:
