@@ -1,6 +1,7 @@
 # custom_components
 Custom Components for Home Assistant
 
+# LiteTouch
 In your config directory, create a folder for 'custom_components' if it is not already there.  Place the litetouch folder inside.
 
 On your configuration.yaml, add the component litetouch.  
@@ -25,7 +26,24 @@ Sample YAML:
           loadid: "110"
           icon: mdi:power
           
-# HACS Installation
-Add this repository to your HACS within Home Assistant to handle updates and easy installation.
-    URL: https://github.com/patmann03/custom_components
 
+# Opnsense Firewall Rule
+
+download the opnsense_ruleswitch folder and place in custom_components folder within the Home Assistant config directory
+Please NOTE that my rules are 'inverted'.  This means that this custom component shows the rule as off when it is enabled and on when it is disabled.  I use this to turn off the internet to PC/Xbox devices at night for the kid.  It is easier to say 'Internet is On' vs. firewall rule is on to disable internet for others in the house.
+
+Sample YAML:
+    switch:
+      - platform: opnsense_ruleswitch
+        host: https://192.168.1.1/api
+        key=w86XNZob/8Oq8aC5r0kbNarNtdpoQU781fyoeaOBQsBwkXUt
+        access_token: XeD26XVrJ5ilAc/EmglCRC+0j2e57tRsjHwFepOseySWLM53pJASeTA3
+        rule_filter: HA
+        
+        
+Opnsense Setup:
+    Install the os-firewall plugin
+    Go to Firewall > Automation
+    Create Rule
+        NOTE: These rules are placed above all other rules (Automation > Floating > VLAN/LAN rules).  Be careful you you can lock yourself out.
+    If you want to expose these to Home Assistant you can add: HA to the beginning of the rule (if you specify rule_filter in the home assistant config.yaml file).  Other rules would not be shown if you use the rule filter.
