@@ -1,7 +1,7 @@
 """Support for LiteTouch Switch."""
 import logging
 
-from homeassistant.components.switch import SwitchDevice
+from homeassistant.components.switch import SwitchEntity
 from homeassistant.const import CONF_NAME
 from homeassistant.core import callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
@@ -39,7 +39,7 @@ def setup_platform(hass, config, add_entities, discover_info=None):
     add_entities(devs, True)
 
 
-class LiteTouchSwitch(LiteTouchDevice, SwitchDevice):
+class LiteTouchSwitch(LiteTouchDevice, SwitchEntity):
     """LiteTouch Switch."""
 
     def __init__(self, controller, addr, name, loadid, icon, toggle):
